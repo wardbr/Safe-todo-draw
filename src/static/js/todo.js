@@ -77,8 +77,6 @@ function InitMData() {
 }
 function InitSafe() {
 
-  //Draw: clear from tests, because with refresh appToken var is empty
-  //if(!appToken) {
   const appInfo = {
     name: 'todo draw',
     id: 'todo.draw.webapp.example1',
