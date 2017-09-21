@@ -1,5 +1,5 @@
 # Safe-todo-draw
-This is a Vue.js version of [TodoMVC](http://todomvc.com) with the list saved on the SAFE Network instead of saved local.
+This is a Vue.js version of [TodoMVC](http://todomvc.com) with the todo list saved on the SAFE Network.
 
 ## Build Setup
 
