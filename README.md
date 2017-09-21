@@ -3,7 +3,7 @@ This is a Vue.js version of [TodoMVC](todomvc.com) with list safed on the SAFE n
 
 ## Build Setup
 
-# run [ESLint](https://eslint.org/docs/user-guide/getting-started):
+When changing something in todo.js, run [ESLint](https://eslint.org/docs/user-guide/getting-started), to have the required format:
 ``` bash
 cd static/js
 #If you want to see wat changed: make a copy first.
