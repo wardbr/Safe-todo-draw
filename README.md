@@ -17,3 +17,12 @@ eslint -c ../../../.eslintrc --fix todo.js safe_wrapper.js
 
 Upload the contents of dir src to the [SAFE Network](https://maidsafe.net)
 It is good practice to change first the appInfo.name in file safe_wrapper.js.
+
+## Some useful links
+
+[JAVA.SCRIPT.INFO](https://javascript.info)
+[modern-js-cheatshee](https://github.com/mbeaudru/modern-js-cheatsheet)
+[JavaScript Promises: an Introduction](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
+[JavaScript Async/Await](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
+[eaker-plugin-safe-app](http://docs.maidsafe.net/beaker-plugin-safe-app/)
+
