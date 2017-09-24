@@ -24,7 +24,7 @@ It is good practice to change first the appInfo.name in file safe_wrapper.js.
 
 [modern-js-cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet)
 
-[JavaScript Promises: an Introduction](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
+[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
 
 [JavaScript Async/Await](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
 
