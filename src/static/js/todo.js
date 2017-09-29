@@ -11,8 +11,8 @@ const SAFE_LIST_KEY = 'key_TodoMVC'
 async function GetListEntrySafe(get_type) {
   let rc = ''
   try {
-    //var value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
-    var value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
+    //let value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
+    const value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
     console.log('GetListEntrySafe entry: ' + SAFE_LIST_KEY + ', get_type: ' + get_type + ', version: ' + value.version + ', value: ' + value.buf.toString())
     if('version' === get_type) {
       rc = value.version
@@ -22,7 +22,7 @@ async function GetListEntrySafe(get_type) {
   } catch(err) {
     if('init' === get_type) {
       console.log('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', get_type: ' + get_type + ' before mutate: err: ' + err)
-      var mut_handle = await window.safeMutableDataEntries.mutate(SentriesHandle)
+      const mut_handle = await window.safeMutableDataEntries.mutate(SentriesHandle)
       if(!mut_handle){
         window.alert('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', get_type: ' + get_type + ': mut_handle null')
       } else {
@@ -49,7 +49,7 @@ async function SetListSafe(value) {
     //SetListSafe error: -107: Core error: Routing client error -> Entry actions are invalid: {[107, 101, 121, 95, 84, 111, 100, 111, 77, 86, 67]: InvalidSuccessor(21)}
     //->therefore switched to code above
     /*if(SentriesHandle) {
-      var version = await GetListEntrySafe('version')
+      let version = await GetListEntrySafe('version')
       if(version) {
         const mut_handle = await window.safeMutableDataEntries.mutate(SentriesHandle)
         console.log('SetListSafe entry: ' + SAFE_LIST_KEY + ', version: ' + version + ', value: ' + value)
@@ -126,25 +126,25 @@ const FreeSafe = () => {
 //retry import later --> place code above in safewrapper.js
 //import {InitSafe, FreeSafe} from './safewrapper.js'
 // localStorage persistence
-//var STORAGE_KEY = 'todos-vuejs-2.0'
+//let STORAGE_KEY = 'todos-vuejs-2.0'
 
 
-var data = {
+const data = {
   todos: '[]',
   newTodo: '',
   editedTodo: null,
   visibility: 'all'
 }
 
-var todoStorage = {
+const todoStorage = {
   //draw: musty async
   //fetch: function () {
   fetch: async function () {
     console.log('begin CLEAR fu todoStorage.fetch')
     //draw: replaced localStorage.getItem by GetListSafe, begin
-    //var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-    var stodos = ''
-    var todos = '[]'
+    //let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    let stodos = ''
+    const todos = '[]'
 
     stodos = await InitSafe()
 
@@ -156,7 +156,7 @@ var todoStorage = {
     console.log('todos.length: ' + todos.length)
   },
   save: function (todos) {
-    var stodos = JSON.stringify(todos)
+    const stodos = JSON.stringify(todos)
     //window.alert(stodos)
     //draw: replaced localStorage.setItem by SetListSafe
     //localStorage.setItem(STORAGE_KEY, stodos)
@@ -165,7 +165,7 @@ var todoStorage = {
 }
 
 // visibility filters
-var filters = {
+const filters = {
   all: function (todos) {
     return todos
   },
@@ -182,7 +182,7 @@ var filters = {
 }
 
 // app Vue instance
-var app = new Vue({
+const app = new Vue({
   // app initial state
   //el: "#apptodo",
   data: data,
@@ -232,7 +232,7 @@ var app = new Vue({
   // note there's no DOM manipulation here at all.
   methods: {
     addTodo: function () {
-      var value = this.newTodo && this.newTodo.trim()
+      const value = this.newTodo && this.newTodo.trim()
       if (!value) {
         return
       }
@@ -289,7 +289,7 @@ var app = new Vue({
 
 // handle routing
 function onHashChange () {
-  var visibility = window.location.hash.replace(/#\/?/, '')
+  const visibility = window.location.hash.replace(/#\/?/, '')
   if (filters[visibility]) {
     app.visibility = visibility
   } else {
