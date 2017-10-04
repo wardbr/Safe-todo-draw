@@ -184,7 +184,7 @@ const filters = {
 // app Vue instance
 const app = new Vue({
   // app initial state
-  //el: "#apptodo",
+  //el: '#apptodo',
   data: data,
 
   //draw: beforeCreate doesn't work, because async->todoStorage.safe called before safe connection
