@@ -95,7 +95,7 @@ async function InitSafe() {
     const app_info = {
       name: 'TodoMVC Vue.js public',
       id: 'TodoMVC.Vue.js.webapp',
-      version: '0.1.0',
+      version: '0.2.0',
       vendor: 'Bedraw'
     }
     const access = {
