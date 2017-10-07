@@ -8,91 +8,91 @@ let SentriesHandle
 
 const SAFE_LIST_KEY = 'key_TodoMVC'
 
-async function GetListEntrySafe(get_type) {
+async function GetListEntrySafe (getType) {
   let rc = ''
   try {
-    //let value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
+    // let value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
     const value = await window.safeMutableDataEntries.get(SentriesHandle, SAFE_LIST_KEY)
-    console.log('GetListEntrySafe entry: ' + SAFE_LIST_KEY + ', get_type: ' + get_type + ', version: ' + value.version + ', value: ' + value.buf.toString())
-    if('version' === get_type) {
+    console.log('GetListEntrySafe entry: ' + SAFE_LIST_KEY + ', getType: ' + getType + ', version: ' + value.version + ', value: ' + value.buf.toString())
+    if (getType === 'version') {
       rc = value.version
     } else {
       rc = value.buf.toString()
     }
-  } catch(err) {
-    if('init' === get_type) {
-      console.log('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', get_type: ' + get_type + ' before mutate: err: ' + err)
-      const mut_handle = await window.safeMutableDataEntries.mutate(SentriesHandle)
-      if(!mut_handle){
-        window.alert('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', get_type: ' + get_type + ': mut_handle null')
+  } catch (err) {
+    if (getType === 'init') {
+      console.log('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', getType: ' + getType + ' before mutate: err: ' + err)
+      const mutHandle = await window.safeMutableDataEntries.mutate(SentriesHandle)
+      if (!mutHandle) {
+        window.alert('GetListEntrySafe entry:' + SAFE_LIST_KEY + ', getType: ' + getType + ': mutHandle null')
       } else {
         rc = '[]'
-        await window.safeMutableDataMutation.insert(mut_handle, SAFE_LIST_KEY, rc)
-        await window.safeMutableData.applyEntriesMutation(SmdHandle, mut_handle)
-        window.safeMutableDataMutation.free(mut_handle)
+        await window.safeMutableDataMutation.insert(mutHandle, SAFE_LIST_KEY, rc)
+        await window.safeMutableData.applyEntriesMutation(SmdHandle, mutHandle)
+        window.safeMutableDataMutation.free(mutHandle)
       }
     } else {
-      window.alert('GetListEntrySafe entry:' + SAFE_LIST_KEY + ' get_type: ' + get_type + ', err: ' + err)
+      window.alert('GetListEntrySafe entry:' + SAFE_LIST_KEY + ' getType: ' + getType + ', err: ' + err)
     }
   }
   return rc
 }
-async function SetListSafe(value) {
+async function SetListSafe (value) {
   try {
-    const mut_handle = await window.safeMutableData.newMutation(AppToken)
-    const prev_value = await window.safeMutableData.get(SmdHandle, SAFE_LIST_KEY)
-    const new_version = prev_value.version + 1
-    console.log('SetListSafe entry: ' + SAFE_LIST_KEY + ', version: ' + new_version + ', value: ' + value)
-    await window.safeMutableDataMutation.update(mut_handle, SAFE_LIST_KEY, value, new_version)
-    await window.safeMutableData.applyEntriesMutation(SmdHandle, mut_handle)
-    //code below gives error below:
-    //SetListSafe error: -107: Core error: Routing client error -> Entry actions are invalid: {[107, 101, 121, 95, 84, 111, 100, 111, 77, 86, 67]: InvalidSuccessor(21)}
-    //->therefore switched to code above
-    /*if(SentriesHandle) {
+    const mutHandle = await window.safeMutableData.newMutation(AppToken)
+    const prevValue = await window.safeMutableData.get(SmdHandle, SAFE_LIST_KEY)
+    const newVersion = prevValue.version + 1
+    console.log('SetListSafe entry: ' + SAFE_LIST_KEY + ', version: ' + newVersion + ', value: ' + value)
+    await window.safeMutableDataMutation.update(mutHandle, SAFE_LIST_KEY, value, newVersion)
+    await window.safeMutableData.applyEntriesMutation(SmdHandle, mutHandle)
+    // code below gives error below:
+    // SetListSafe error: -107: Core error: Routing client error -> Entry actions are invalid: {[107, 101, 121, 95, 84, 111, 100, 111, 77, 86, 67]: InvalidSuccessor(21)}
+    // ->therefore switched to code above
+    /* if(SentriesHandle) {
       let version = await GetListEntrySafe('version')
       if(version) {
-        const mut_handle = await window.safeMutableDataEntries.mutate(SentriesHandle)
+        const mutHandle = await window.safeMutableDataEntries.mutate(SentriesHandle)
         console.log('SetListSafe entry: ' + SAFE_LIST_KEY + ', version: ' + version + ', value: ' + value)
-        await window.safeMutableDataMutation.update(mut_handle, SAFE_LIST_KEY, value, version + 1)
-        await window.safeMutableData.applyEntriesMutation(SmdHandle, mut_handle)
-        window.safeMutableDataMutation.free(mut_handle)
+        await window.safeMutableDataMutation.update(mutHandle, SAFE_LIST_KEY, value, version + 1)
+        await window.safeMutableData.applyEntriesMutation(SmdHandle, mutHandle)
+        window.safeMutableDataMutation.free(mutHandle)
       }
     } else {
       window.alert('SetListSafe SentriesHandle null')
-    }*/
-  } catch(err) {
+    } */
+  } catch (err) {
     window.alert('SetListSafe error: ' + err)
   }
 }
 
-async function InitMData() {
+async function InitMData () {
   let rc = '[]'
   try {
     const container = '_public'
     SmdHandle = await window.safeApp.getContainer(AppToken, container)
 
-    //const r = await window.safeMutableData.getNameAndTag(SmdHandle)
-    //console.log('MutableData tag: ' + r.tag + ' and name: ' + r.name.buffer)
-    //const version = await window.safeMutableData.getVersion(SmdHandle)
-    //console.log('MutableData current version: ' + version)
+    // const r = await window.safeMutableData.getNameAndTag(SmdHandle)
+    // console.log('MutableData tag: ' + r.tag + ' and name: ' + r.name.buffer)
+    // const version = await window.safeMutableData.getVersion(SmdHandle)
+    // console.log('MutableData current version: ' + version)
 
     SentriesHandle = await window.safeMutableData.getEntries(SmdHandle)
-    if(!SentriesHandle) {
+    if (!SentriesHandle) {
       window.alert('InitMData: safeMutableData.getEntries returns nothing')
     }
     console.log('SentriesHandle: ', SentriesHandle)
 
     rc = await GetListEntrySafe('init')
-  } catch(err) {
+  } catch (err) {
     window.alert('InitMData error: ' + err)
   }
   return rc
 }
 
-//const InitSafe = async () => {
-async function InitSafe() {
+// const InitSafe = async () => {
+async function InitSafe () {
   try {
-    const app_info = {
+    const appInfo = {
       name: 'TodoMVC Vue.js public',
       id: 'TodoMVC.Vue.js.webapp',
       version: '0.2.0',
@@ -103,31 +103,30 @@ async function InitSafe() {
     }
     const options = { own_container: false }
 
-    AppToken = await window.safeApp.initialise(app_info)
+    AppToken = await window.safeApp.initialise(appInfo)
     console.log('Application Token received: ' + AppToken)
 
-    const auth_uri = await window.safeApp.authorise(AppToken, access, options)
-    console.log('auth_uri' + auth_uri)
+    const authUri = await window.safeApp.authorise(AppToken, access, options)
+    console.log('authUri' + authUri)
 
-    await window.safeApp.connectAuthorised(AppToken, auth_uri)
+    await window.safeApp.connectAuthorised(AppToken, authUri)
     return await InitMData()
-  } catch(err) {
+  } catch (err) {
     window.alert('InitSafeAsync error: ' + err)
   }
 }
-//export { InitSafe }
+// export { InitSafe }
 
-//export const FreeSafe = () => {
+// export const FreeSafe = () => {
 const FreeSafe = () => {
-  //fu Freesafe called with every load/refresh, immediately after InitSafe call: probably not useful
+  // fu Freesafe called with every load/refresh, immediately after InitSafe call: probably not useful
   window.safeApp.free(AppToken)
 }
 
-//retry import later --> place code above in safewrapper.js
-//import {InitSafe, FreeSafe} from './safewrapper.js'
+// retry import later --> place code above in safewrapper.js
+// import {InitSafe, FreeSafe} from './safewrapper.js'
 // localStorage persistence
-//let STORAGE_KEY = 'todos-vuejs-2.0'
-
+// let STORAGE_KEY = 'todos-vuejs-2.0'
 
 const data = {
   todos: '[]',
@@ -137,12 +136,12 @@ const data = {
 }
 
 const todoStorage = {
-  //draw: musty async
-  //fetch: function () {
+  // draw: musty async
+  // fetch: function () {
   fetch: async function () {
     console.log('begin CLEAR fu todoStorage.fetch')
-    //draw: replaced localStorage.getItem by GetListSafe, begin
-    //let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    // draw: replaced localStorage.getItem by GetListSafe, begin
+    // let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     let stodos = ''
     const todos = '[]'
 
@@ -157,9 +156,9 @@ const todoStorage = {
   },
   save: function (todos) {
     const stodos = JSON.stringify(todos)
-    //window.alert(stodos)
-    //draw: replaced localStorage.setItem by SetListSafe
-    //localStorage.setItem(STORAGE_KEY, stodos)
+    // window.alert(stodos)
+    // draw: replaced localStorage.setItem by SetListSafe
+    // localStorage.setItem(STORAGE_KEY, stodos)
     SetListSafe(stodos)
   }
 }
@@ -182,14 +181,14 @@ const filters = {
 }
 
 // app Vue instance
-const app = new Vue({
+const app = new window.Vue({
   // app initial state
-  //el: '#apptodo',
+  // el: '#apptodo',
   data: data,
 
-  //draw: beforeCreate doesn't work, because async->todoStorage.safe called before safe connection
-  //->empty list, because can't yet be fetched
-  //beforeCreate: InitSafe(),
+  // draw: beforeCreate doesn't work, because async->todoStorage.safe called before safe connection
+  // ->empty list, because can't yet be fetched
+  // beforeCreate: InitSafe(),
 
   // watch todos change for localStorage persistence
   watch: {
