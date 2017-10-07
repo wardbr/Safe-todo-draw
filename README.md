@@ -5,12 +5,12 @@ This is a Vue.js version of [TodoMVC](http://todomvc.com) with the todo list sav
 
 When changing something in file app.js or safe.js, run [ESLint](https://eslint.org/docs/user-guide/getting-started) to have the required format:
 ``` bash
-cd src/static/js
-#If you want to see afterwards what changed: make a copy first, e.g:.
+cd src/js
+#If you want to see afterwards what changed: make a copy first.
 cp app.js app.prev.js
 cp safe.js safe.prev.js
 
-eslint -c ../../../.eslintrc --fix app.js safe.js
+eslint -c ../../.eslintrc --fix app.js safe.js
 
 
 ```
