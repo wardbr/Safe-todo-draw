@@ -23,25 +23,24 @@
   // fetch: function () {
     fetch: async function () {
       console.log('begin CLEAR fu todoStorage.fetch')
-      // draw: replaced localStorage.getItem() by safeWrap.init(), begin
-      // data.todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-      let stodos = ''
       const todos = '[]'
 
-      stodos = await safeWrap.init()
-
+      // draw: replaced localStorage.getItem() by safeWrap.init(), begin
+      // data.todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      const stodos = await safeWrap.init()
       data.todos = JSON.parse(stodos || '[]')
       // draw: replaced localStorage.getItem() by safeWrap.init(), end
+
       data.todos.forEach(function (todo, index) {
         todo.id = index
       })
-      todoStorage.uid = todos.length
-      console.log('todos.length: ' + todos.length)
+      todoStorage.uid = data.todos.length
+      console.log('todos.length: ' + data.todos.length)
     },
     save: function (todos) {
       const stodos = JSON.stringify(todos)
       // draw: replaced localStorage.setItem by safeWrap.setList
-      // localStorage.setItem(STORAGE_KEY, stodos)
+      // localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
       safeWrap.setList(stodos)
     }
   }
