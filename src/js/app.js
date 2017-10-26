@@ -22,7 +22,7 @@
   // draw: musty async
   // fetch: function () {
     fetch: async function () {
-      console.log('begin CLEAR fu todoStorage.fetch')
+      console.log('begin fu todoStorage.fetch')
       const todos = '[]'
 
       // draw: replaced localStorage.getItem() by safeWrap.init(), begin

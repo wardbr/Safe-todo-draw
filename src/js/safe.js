@@ -71,7 +71,7 @@
         const appInfo = {
           name: 'TodoMVC Vue.js public',
           id: 'TodoMVC.Vue.js.webapp',
-          version: '0.2.0',
+          version: '0.3.0',
           vendor: 'Bedraw'
         }
         const access = {
