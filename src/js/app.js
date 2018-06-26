@@ -164,9 +164,7 @@
           el.focus()
         }
       }
-    },
-    // destroyed doesn't seem to be loaded before a page refresh
-    destroyed: safeWrap.free()
+    }
   })
 
   // handle routing
